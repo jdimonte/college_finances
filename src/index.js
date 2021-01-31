@@ -1,12 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { BrowserRouter as Router, Route, Switch, Link, Redirect } from "react-router-dom";
+import './Style.css';
 import reportWebVitals from './reportWebVitals';
+// pages
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import Dashboard from './pages/Dashboard';
+import NotFoundPage from './pages/404';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/login" component={SignIn} />
+        <Route exact path="/dashboard" component={Dashboard} />
+        <Route exact path="/404" component={NotFoundPage} />
+        <Redirect to="/404" /> 
+      </Switch>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );
