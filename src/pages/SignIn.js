@@ -1,13 +1,16 @@
 import React from 'react' 
-import {Link} from 'react-router-dom'
+import {Link, Redirect, Router } from 'react-router-dom'
+import Login from '../components/Login'
+import Register from '../components/Register'
 
 function SignIn() {
-
+    const user = true;
     return (
-        <div>
-            <h1>Sign In</h1>
-            <Link to="/Dashboard">Sign in</Link>
-        </div>
+        user ? <Redirect to="/Dashboard"/> :
+            <Router>
+                <Register path="/login/register"/>
+                <Login path="/login"/>
+            </Router>
     )
 }
 

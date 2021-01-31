@@ -1,6 +1,6 @@
 
 import '../Style.css';
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom'
 import ProgressBar from "../components/progressbar";
 
@@ -19,11 +19,10 @@ function Dashboard(setUserData){
     const [amount, setAmount] = useState(0);
     const [budget, setBudget] = useState(0);
     const [state] = useState(0);
-    const [goal, setGoal] = ("Good Job!");
 
     const [hpercent, setHPercent] = useState(0);
     const [fpercent, setFPercent] = useState(0);
-    const [epercect, setEPercent] = useState(0);
+    const [epercent, setEPercent] = useState(0);
     const [mpercent, setMPercent] = useState(0);
 
     const handleButtonClick = (x) => {
@@ -56,6 +55,14 @@ function Dashboard(setUserData){
         setAmount(event.target.value);
     }
 
+    useEffect(() => {
+        setHPercent((housing/cost)*100);
+        setFPercent((food/cost)*100);
+        setEPercent((entertainment/cost)*100);
+        setMPercent((misc/cost)*100);
+    }, [cost]);
+
+
     return (
         <div>
             <h1>Add Costs</h1>
@@ -82,9 +89,16 @@ function Dashboard(setUserData){
             <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
 
             <div className="App">
-            {testData.map((item, idx) => (
-                <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
-            ))}
+            <ProgressBar bgcolor={"#6a1b9a"} completed={hpercent} />
+            </div>
+            <div className="App">
+            <ProgressBar bgcolor={"#6a1b9a"} completed={fpercent} />
+            </div>
+            <div className="App">
+            <ProgressBar bgcolor={"#6a1b9a"} completed={epercent} />
+            </div>
+            <div className="App">
+            <ProgressBar bgcolor={"#6a1b9a"} completed={mpercent} />
             </div>
 
             <h1>Amount Spent: {cost}</h1>
