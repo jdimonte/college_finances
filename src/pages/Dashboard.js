@@ -1,5 +1,4 @@
 import { UserContext} from '../provider/UserProvider'
-import { logOut } from '../database/firebase'
 import '../Style.css';
 import React, {useEffect, useContext, useState} from 'react'
 import { Redirect,Link } from 'react-router-dom'
@@ -16,7 +15,6 @@ function Dashboard(setUserData){
     const [misc, setMisc] = useState(0);
     const [cost, setCost] = useState(0);
     const [amount, setAmount] = useState(0);
-    const [budget, setBudget] = useState(0);
     const [state] = useState(0);
 
     const [hbudget, setHBudget] = useState(0);
@@ -208,7 +206,7 @@ function Dashboard(setUserData){
             else{
                 setPercent((housing/hbudget)*100);
             }
-            setBudget(hbudget);
+            
         } else if(inFood){
             if((food/fbudget)*100 > 100){
                 setPercent(100);
@@ -216,7 +214,7 @@ function Dashboard(setUserData){
             else{
                 setPercent((food/fbudget)*100);
             }
-            setBudget(fbudget);
+            
         } else if(inEntertainment) {
             if((entertainment/ebudget)*100 > 100){
                 setPercent(100);
@@ -224,7 +222,7 @@ function Dashboard(setUserData){
             else{
                 setPercent((entertainment/ebudget)*100);
             }
-            setBudget(ebudget);
+            
         } else {
             if((misc/mbudget)*100 > 100){
                 setPercent(100);
@@ -232,7 +230,7 @@ function Dashboard(setUserData){
             else{
                 setPercent((misc/mbudget)*100);
             }
-            setBudget(mbudget);
+        
         }
     }, [cost]);
 

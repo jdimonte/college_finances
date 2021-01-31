@@ -3,7 +3,7 @@ import { auth } from "../database/firebase";
 export const UserContext = createContext({ user: null });
 export default (props) => {
   const [user, setuser] = useState(null);
-  useEffect(() => {
+  useEffect( () => {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         const { displayName, email } = user;
