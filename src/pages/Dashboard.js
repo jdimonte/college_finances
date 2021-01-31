@@ -5,12 +5,6 @@ import React, {useEffect, useContext, useState} from 'react'
 import { Redirect,Link } from 'react-router-dom'
 import ProgressBar from "../components/progressbar";
 
-const testData = [
-    { bgcolor: "#6a1b9a", completed: 60 },
-    { bgcolor: "#00695c", completed: 30 },
-    { bgcolor: "#ef6c00", completed: 53 },
-  ];
-
 function Dashboard(setUserData){
 
     const user = useContext(UserContext);
@@ -31,10 +25,6 @@ function Dashboard(setUserData){
     const [mbudget, setMBudget] = useState(0);
 
     const [percent, setPercent] = useState(0)
-    const [hpercent, setHPercent] = useState(0);
-    const [fpercent, setFPercent] = useState(0);
-    const [epercent, setEPercent] = useState(0);
-    const [mpercent, setMPercent] = useState(0);
 
     const[inHousing, setInHousing] = useState(true);
     const[inFood, setInFood] = useState(false);
@@ -78,28 +68,40 @@ function Dashboard(setUserData){
         setInFood(false);
         setInEntertainment(false);
         setInMisc(false);
+        setPercent((housing/hbudget)*100);
     }
     const handleFoodClick = () => {
         setInHousing(false);
         setInFood(true);
         setInEntertainment(false);
         setInMisc(false);
+        setPercent((food/fbudget)*100);
     }
     const handleEntertainmentClick = () => {
         setInHousing(false);
         setInFood(false);
         setInEntertainment(true);
         setInMisc(false);
+        setPercent((entertainment/ebudget)*100);
     }
     const handleMiscClick = () => {
         setInHousing(false);
         setInFood(false);
         setInEntertainment(false);
         setInMisc(true);
+        setPercent((misc/mbudget)*100);
     }
 
     function handleBudgetChange(event) {
-        setBudget(event.target.value);
+        if(inHousing){
+            setHBudget(event.target.value);
+        } else if(inFood){
+            setFBudget(event.target.value);
+        } else if(inEntertainment) {
+            setEBudget(event.target.value);
+        } else {
+            setMBudget(event.target.value);
+        }
     }
 
     function handleAmountChange(event) {
@@ -107,10 +109,19 @@ function Dashboard(setUserData){
     }
 
     useEffect(() => {
-        setHPercent((housing/cost)*100);
-        setFPercent((food/cost)*100);
-        setEPercent((entertainment/cost)*100);
-        setMPercent((misc/cost)*100);
+        if(inHousing){
+            setPercent((housing/hbudget)*100);
+            setBudget(hbudget);
+        } else if(inFood){
+            setPercent((food/fbudget)*100);
+            setBudget(fbudget);
+        } else if(inEntertainment) {
+            setPercent((entertainment/ebudget)*100);
+            setBudget(ebudget);
+        } else {
+            setPercent((misc/mbudget)*100);
+            setBudget(mbudget);
+        }
     }, [cost]);
 
     const displayTitle = ()=>{
@@ -124,56 +135,53 @@ function Dashboard(setUserData){
             return <h1 className="title">Misc</h1>
         }
       }
+    
+    const displayBudget = ()=>{
+        if(inHousing){
+            return <h1 className="budget">Budget: ${hbudget}</h1>
+        } else if(inFood){
+            return <h1 className="budget">Budget: ${fbudget}</h1>
+        } else if(inEntertainment) {
+            return <h1 className="budget">Budget: ${ebudget}</h1>
+        } else {
+            return <h1 className="budget">Budget: ${mbudget}</h1>
+        }
+    }
 
     return (
-        <div>
+        <div className="dashboard-page">
             <div className="navigate_container">
-                <button className="navigate" onClick={() => handleHousingClick()}>Housing Image</button>
-                <button className="navigate" onClick={() => handleFoodClick()}>Food Image</button>
-                <button className="navigate" onClick={() => handleEntertainmentClick()}>Entertainment Image</button>
-                <button className="navigate" onClick={() => handleMiscClick()}>Misc Image</button>
+                <button className="navigate nav-home" onClick={() => handleHousingClick()}><i class="fas fa-home"></i></button>
+                <button className="navigate nav-food" onClick={() => handleFoodClick()}><i class="fas fa-utensils"></i></button>
+                <button className="navigate nav-mov" onClick={() => handleEntertainmentClick()}><i class="fas fa-film"></i></button>
+                <button className="navigate nav-misc" onClick={() => handleMiscClick()}><i class="fas fa-tags"></i></button>
             </div>
-            {displayTitle()}
-            <form className="budget_form">
-                <label>Budget: </label>
-                    <input
+            <div className="dashboard-top">
+                {displayTitle()}
+                <form className="budget_form">
+                    <label>Budget: </label>
+                        <input
+                        type="number"
+                        name="budget"
+                        value={state.budget}
+                        onChange={handleBudgetChange}
+                    />
+                </form>
+                {displayBudget()}
+                <h2 className="new_purchase">New Purchase</h2>
+                <form className="amount_form">
+                    <label>Amount: </label>
+                    <input 
                     type="number"
-                    name="budget"
-                    value={state.budget}
-                    onChange={handleBudgetChange}
-                />
-            </form>
-            <h1 className="budget">Budget: ${budget}</h1>
-            <h2 className="new_purchase">New Purchase</h2>
-            <form className="amount_form">
-                <label>Amount: </label>
-                <input 
-                type="number"
-                name="amount"
-                value={state.amount}
-                onChange={handleAmountChange}
-                />
-            </form>
-            <button className="add" onClick={() => handleButtonClick('h')}>Add</button>
+                    name="amount"
+                    value={state.amount}
+                    onChange={handleAmountChange}
+                    />
+                </form>
+                <button className="add" onClick={() => handleButtonClick('h')}>Add</button>
 
-            <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
-            <h1>Amount Spent: {cost}</h1>
-
-            <h2 className="money_left">Left to spend this week:</h2>
-
-            <div className="App">
-            <ProgressBar bgcolor={"#6a1b9a"} completed={hpercent} />
+                <h2 className="money_left">Left to spend this week:</h2>
             </div>
-            <div className="App">
-            <ProgressBar bgcolor={"#6a1b9a"} completed={fpercent} />
-            </div>
-            <div className="App">
-            <ProgressBar bgcolor={"#6a1b9a"} completed={epercent} />
-            </div>
-            <div className="App">
-            <ProgressBar bgcolor={"#6a1b9a"} completed={mpercent} />
-            </div>
-
             <div className="App">
             <ProgressBar bgcolor={"#6a1b9a"} completed={percent} />
             </div>
