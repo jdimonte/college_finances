@@ -1,7 +1,7 @@
-
+import { UserContext} from '../provider/UserProvider'
 import '../Style.css';
-import React, {useEffect, useState} from 'react'
-import { Link } from 'react-router-dom'
+import React, {useEffect, useContext, useState} from 'react'
+import { Redirect,Link } from 'react-router-dom'
 import ProgressBar from "../components/progressbar";
 
 const testData = [
@@ -11,6 +11,10 @@ const testData = [
   ];
 
 function Dashboard(setUserData){
+
+    const user = useContext(UserContext);
+    const [redirect, setRedirect] = useState(null);
+
     const [housing, setHousing] = useState(0);
     const [food, setFood] = useState(0);
     const [entertainment, setEntertainment] = useState(0);
@@ -30,17 +34,32 @@ function Dashboard(setUserData){
     const [epercent, setEPercent] = useState(0);
     const [mpercent, setMPercent] = useState(0);
 
-    const handleButtonClick = (x) => {
+    const[inHousing, setInHousing] = useState(true);
+    const[inFood, setInFood] = useState(false);
+    const[inEntertainment, setInEntertainment] = useState(false);
+    const[inMisc, setInMisc] = useState(false);
+
+    useEffect(() => {
+        if(!user) {
+            setRedirect("/")
+        }
+    }, [user]);
+    if (redirect) {
+        <Redirect to={redirect}/>;
+    }
+    
+
+    const handleButtonClick = () => {
         var temp;
-        if(x === 'h'){
+        if(inHousing){
             temp = Number(housing) + Number(amount);
             setHousing(temp);
         }
-        else if(x === 'f'){
+        else if(inFood){
             temp = Number(food) + Number(amount);
             setFood(temp);
         }
-        else if(x === 'e'){
+        else if(inEntertainment){
             temp = Number(entertainment) + Number(amount);
             setEntertainment(temp);
         }
@@ -50,6 +69,31 @@ function Dashboard(setUserData){
         }
         var temp2 = Number(cost) + Number(amount);
         setCost(temp2);
+    }
+
+    const handleHousingClick = () => {
+        setInHousing(true);
+        setInFood(false);
+        setInEntertainment(false);
+        setInMisc(false);
+    }
+    const handleFoodClick = () => {
+        setInHousing(false);
+        setInFood(true);
+        setInEntertainment(false);
+        setInMisc(false);
+    }
+    const handleEntertainmentClick = () => {
+        setInHousing(false);
+        setInFood(false);
+        setInEntertainment(true);
+        setInMisc(false);
+    }
+    const handleMiscClick = () => {
+        setInHousing(false);
+        setInFood(false);
+        setInEntertainment(false);
+        setInMisc(true);
     }
 
     function handleBudgetChange(event) {
@@ -67,16 +111,27 @@ function Dashboard(setUserData){
         setMPercent((misc/cost)*100);
     }, [cost]);
 
+    const displayTitle = ()=>{
+        if(inHousing){
+            return <h1 className="title">Housing</h1>
+        } else if(inFood){
+            return <h1 className="title">Food</h1>
+        } else if(inEntertainment) {
+            return <h1 className="title">Entertainment</h1>
+        } else {
+            return <h1 className="title">Misc</h1>
+        }
+      }
 
     return (
         <div>
             <div className="navigate_container">
-                <button className="navigate">Housing Image</button>
-                <button className="navigate">Food Image</button>
-                <button className="navigate">Entertainment Image</button>
-                <button className="navigate">Misc Image</button>
+                <button className="navigate" onClick={() => handleHousingClick()}>Housing Image</button>
+                <button className="navigate" onClick={() => handleFoodClick()}>Food Image</button>
+                <button className="navigate" onClick={() => handleEntertainmentClick()}>Entertainment Image</button>
+                <button className="navigate" onClick={() => handleMiscClick()}>Misc Image</button>
             </div>
-            <h1 className="title">Title</h1>
+            {displayTitle()}
             <form className="budget_form">
                 <label>Budget: </label>
                     <input
@@ -121,11 +176,7 @@ function Dashboard(setUserData){
             </div>
 
             { cost > budget ? <p className="feedback">You are over your budget</p> : <p className="feedback">Good job! </p>}
-            <Link to="/">Log out</Link>
-        </div>
-    );
-    
-}
-
+    </div>
+    )}
 
 export default Dashboard;

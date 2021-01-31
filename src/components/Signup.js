@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import {firebaseAuth} from '../provider/AuthProvider'
 
 const Signup = () => {
 
