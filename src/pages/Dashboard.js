@@ -13,6 +13,7 @@ function Dashboard(setUserData){
     const [amount, setAmount] = useState(0);
     const [budget, setBudget] = useState(0);
     const [state] = useState(0);
+    const [goal, setGoal] = ("Good Job!");
 
     const handleButtonClick = (x) => {
         var temp;
@@ -70,7 +71,7 @@ function Dashboard(setUserData){
             <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
             <h1>Amount Spent: {cost}</h1>
             <h1>Total Budget: {budget}</h1>
-            <h1>Good Job!</h1>
+            { cost > budget ? <p>You are over your budget. Consider decreasing your budget for next week.</p> : <p>Good job! You are under your budget.</p>}
             <Link to="/">Log out</Link>
         </div>
     );
