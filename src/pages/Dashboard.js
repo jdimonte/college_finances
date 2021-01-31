@@ -119,8 +119,10 @@ function Dashboard(setUserData){
                 </div>
             </div> 
             {displaySection()}
+            <div className="footer">
             <Link to="/">Home</Link>
             <button className="reset-btn" onClick={handleReset}>reset</button>
+            </div>
         </div>
     )}
 
