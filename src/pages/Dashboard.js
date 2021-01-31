@@ -4,41 +4,73 @@ import '../Style.css';
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 
-function Dashboard(){
+function Dashboard(setUserData){
     const [housing, setHousing] = useState(0);
     const [food, setFood] = useState(0);
     const [entertainment, setEntertainment] = useState(0);
     const [misc, setMisc] = useState(0);
     const [cost, setCost] = useState(0);
-
+    const [amount, setAmount] = useState(0);
+    const [budget, setBudget] = useState(0);
+    const [state] = useState(0);
 
     const handleButtonClick = (x) => {
+        var temp;
         if(x === 'h'){
-            setHousing(housing => housing + 1);
+            temp = Number(housing) + Number(amount);
+            setHousing(temp);
         }
         else if(x === 'f'){
-            setFood(food => food + 1);
+            temp = Number(food) + Number(amount);
+            setFood(temp);
         }
         else if(x === 'e'){
-            setEntertainment(entertainment => entertainment + 1);
+            temp = Number(entertainment) + Number(amount);
+            setEntertainment(temp);
         }
         else {
-            setMisc(misc => misc + 1);
+            temp = Number(misc) + Number(amount);
+            setMisc(temp);
         }
+        var temp2 = Number(cost) + Number(amount);
+        setCost(temp2);
+    }
 
-        setCost(cost => cost + 1);
+    function handleBudgetChange(event) {
+        setBudget(event.target.value);
+    }
+
+    function handleAmountChange(event) {
+        setAmount(event.target.value);
     }
 
     return (
         <div>
             <h1>Add Costs</h1>
+            <form>
+                <label>Costs</label>
+                <input 
+                type="number"
+                name="amount"
+                value={state.amount}
+                onChange={handleAmountChange}
+                />
+                <label>Budget</label>
+                <input
+                type="number"
+                name="budget"
+                value={state.budget}
+                onChange={handleBudgetChange}
+                />
+            </form>
             <button onClick={() => handleButtonClick('h')}>Housing</button>
             <button onClick={() => handleButtonClick('f')}>Food</button>
             <button onClick={() => handleButtonClick('e')}>Entertainment</button>
             <button onClick={() => handleButtonClick('m')}>Misc</button>
             <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
             <h1>Amount Spent: {cost}</h1>
-            <h1>Total Budget: $1000</h1>
+            <h1>Total Budget: {budget}</h1>
+            <h1>Good Job!</h1>
             <Link to="/">Log out</Link>
         </div>
     );
