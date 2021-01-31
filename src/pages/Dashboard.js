@@ -1,4 +1,5 @@
 import { UserContext} from '../provider/UserProvider'
+import { logOut } from '../database/firebase'
 import '../Style.css';
 import React, {useEffect, useContext, useState} from 'react'
 import { Redirect,Link } from 'react-router-dom'
@@ -29,6 +30,7 @@ function Dashboard(setUserData){
     const [ebudget, setEBudget] = useState(0);
     const [mbudget, setMBudget] = useState(0);
 
+    const [percent, setPercent] = useState(0)
     const [hpercent, setHPercent] = useState(0);
     const [fpercent, setFPercent] = useState(0);
     const [epercent, setEPercent] = useState(0);
@@ -153,9 +155,6 @@ function Dashboard(setUserData){
                 />
             </form>
             <button className="add" onClick={() => handleButtonClick('h')}>Add</button>
-            <button className="add" onClick={() => handleButtonClick('f')}>Add</button>
-            <button className="add" onClick={() => handleButtonClick('e')}>Add</button>
-            <button className="add" onClick={() => handleButtonClick('m')}>Add</button>
 
             <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
             <h1>Amount Spent: {cost}</h1>
@@ -175,8 +174,15 @@ function Dashboard(setUserData){
             <ProgressBar bgcolor={"#6a1b9a"} completed={mpercent} />
             </div>
 
+            <div className="App">
+            <ProgressBar bgcolor={"#6a1b9a"} completed={percent} />
+            </div>
+
             { cost > budget ? <p className="feedback">You are over your budget</p> : <p className="feedback">Good job! </p>}
-    </div>
+            <Link to="/">Home</Link>
+            <button onClick={logOut}>Log out</button>
+            <button>reset</button>
+        </div>
     )}
 
 export default Dashboard;
