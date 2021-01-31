@@ -26,7 +26,12 @@ function login() {
     return (
         <div>
             <h1>Login</h1>
-            <div></div>
+            <div>
+                {error != nyll && <div>{error}</div>}
+                <form className="">
+                    <label htmlFor="userEmail" className="entry-block">Email:</label>
+                </form>    
+            </div>
         </div>
     )
 }

@@ -1,8 +1,14 @@
-//housing, food, entertainment, misc
 
 import '../Style.css';
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
+import ProgressBar from "../components/progressbar";
+
+const testData = [
+    { bgcolor: "#6a1b9a", completed: 60 },
+    { bgcolor: "#00695c", completed: 30 },
+    { bgcolor: "#ef6c00", completed: 53 },
+  ];
 
 function Dashboard(setUserData){
     const [housing, setHousing] = useState(0);
@@ -14,6 +20,11 @@ function Dashboard(setUserData){
     const [budget, setBudget] = useState(0);
     const [state] = useState(0);
     const [goal, setGoal] = ("Good Job!");
+
+    const [hpercent, setHPercent] = useState(0);
+    const [fpercent, setFPercent] = useState(0);
+    const [epercect, setEPercent] = useState(0);
+    const [mpercent, setMPercent] = useState(0);
 
     const handleButtonClick = (x) => {
         var temp;
@@ -69,6 +80,13 @@ function Dashboard(setUserData){
             <button onClick={() => handleButtonClick('e')}>Entertainment</button>
             <button onClick={() => handleButtonClick('m')}>Misc</button>
             <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
+
+            <div className="App">
+            {testData.map((item, idx) => (
+                <ProgressBar key={idx} bgcolor={item.bgcolor} completed={item.completed} />
+            ))}
+            </div>
+
             <h1>Amount Spent: {cost}</h1>
             <h1>Total Budget: {budget}</h1>
             { cost > budget ? <p>You are over your budget. Consider decreasing your budget for next week.</p> : <p>Good job! You are under your budget.</p>}
