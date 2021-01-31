@@ -46,18 +46,54 @@ function Dashboard(setUserData){
         if(inHousing){
             temp = Number(housing) + Number(amount);
             setHousing(temp);
+            if(housing > hbudget){
+                setHousing(hbudget);
+            }
+            if((housing/hbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((housing/hbudget)*100);
+            }
         }
         else if(inFood){
             temp = Number(food) + Number(amount);
             setFood(temp);
+            if(food > fbudget){
+                setFood(fbudget);
+            }
+            if((food/fbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((food/fbudget)*100);
+            }
         }
         else if(inEntertainment){
             temp = Number(entertainment) + Number(amount);
             setEntertainment(temp);
+            if(entertainment > ebudget){
+                setEntertainment(ebudget);
+            }
+            if((entertainment/ebudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((entertainment/ebudget)*100);
+            }
         }
         else {
             temp = Number(misc) + Number(amount);
             setMisc(temp);
+            if(misc > mbudget){
+                setMisc(mbudget);
+            }
+            if((misc/mbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((misc/mbudget)*100);
+            }
         }
         var temp2 = Number(cost) + Number(amount);
         setCost(temp2);
@@ -68,39 +104,95 @@ function Dashboard(setUserData){
         setInFood(false);
         setInEntertainment(false);
         setInMisc(false);
-        setPercent((housing/hbudget)*100);
+        if((housing/hbudget)*100 > 100){
+            setPercent(100);
+        }
+        else{
+            setPercent((housing/hbudget)*100);
+        }
     }
     const handleFoodClick = () => {
         setInHousing(false);
         setInFood(true);
         setInEntertainment(false);
         setInMisc(false);
-        setPercent((food/fbudget)*100);
+        if((food/fbudget)*100 > 100){
+            setPercent(100);
+        }
+        else{
+            setPercent((food/fbudget)*100);
+        }
     }
     const handleEntertainmentClick = () => {
         setInHousing(false);
         setInFood(false);
         setInEntertainment(true);
         setInMisc(false);
-        setPercent((entertainment/ebudget)*100);
+        if((entertainment/ebudget)*100 > 100){
+            setPercent(100);
+        }
+        else{
+            setPercent((entertainment/ebudget)*100);
+        }
     }
     const handleMiscClick = () => {
         setInHousing(false);
         setInFood(false);
         setInEntertainment(false);
         setInMisc(true);
-        setPercent((misc/mbudget)*100);
+        if((misc/mbudget)*100 > 100){
+            setPercent(100);
+        }
+        else{
+            setPercent((misc/mbudget)*100);
+        }
     }
 
     function handleBudgetChange(event) {
         if(inHousing){
             setHBudget(event.target.value);
+            if(housing > hbudget){
+                setHousing(hbudget);
+            }
+            if((housing/hbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((housing/hbudget)*100);
+            }
         } else if(inFood){
             setFBudget(event.target.value);
+            if(food > fbudget){
+                setFood(fbudget);
+            }
+            if((food/fbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((food/fbudget)*100);
+            }
         } else if(inEntertainment) {
             setEBudget(event.target.value);
+            if(entertainment > ebudget){
+                setEntertainment(ebudget);
+            }
+            if((entertainment/ebudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((entertainment/ebudget)*100);
+            }
         } else {
+            if(misc > mbudget){
+                setMisc(mbudget);
+            }
             setMBudget(event.target.value);
+            if((misc/mbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((misc/mbudget)*100);
+            }
         }
     }
 
@@ -110,16 +202,36 @@ function Dashboard(setUserData){
 
     useEffect(() => {
         if(inHousing){
-            setPercent((housing/hbudget)*100);
+            if((housing/hbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((housing/hbudget)*100);
+            }
             setBudget(hbudget);
         } else if(inFood){
-            setPercent((food/fbudget)*100);
+            if((food/fbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((food/fbudget)*100);
+            }
             setBudget(fbudget);
         } else if(inEntertainment) {
-            setPercent((entertainment/ebudget)*100);
+            if((entertainment/ebudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((entertainment/ebudget)*100);
+            }
             setBudget(ebudget);
         } else {
-            setPercent((misc/mbudget)*100);
+            if((misc/mbudget)*100 > 100){
+                setPercent(100);
+            }
+            else{
+                setPercent((misc/mbudget)*100);
+            }
             setBudget(mbudget);
         }
     }, [cost]);
@@ -132,7 +244,7 @@ function Dashboard(setUserData){
         } else if(inEntertainment) {
             return <h1 className="title">Entertainment</h1>
         } else {
-            return <h1 className="title">Misc</h1>
+            return <h1 className="title">Miscellaneous</h1>
         }
       }
     
@@ -148,18 +260,42 @@ function Dashboard(setUserData){
         }
     }
 
+    const displayFeedback = ()=>{
+        if(inHousing){
+            return <div> { housing >= hbudget ? <p className="feedback">You have reached your budget</p> : <p className="feedback">Good job! </p> } </div>
+        } else if(inFood){
+            return <div> { food >= fbudget ? <p className="feedback">You have reached your budget</p> : <p className="feedback">Good job! </p>} </div> 
+        } else if(inEntertainment) {
+            return <div>  { entertainment >= ebudget ? <p className="feedback">You have reached your budget</p> : <p className="feedback">Good job! </p>} </div> 
+        } else {
+            return <div> { misc >= mbudget ? <p className="feedback">You have reached your budget</p> : <p className="feedback">Good job! </p>} </div> 
+        }
+    }
+
     return (
         <div className="dashboard-page">
             <div className="navigate_container">
-                <button className="navigate nav-home" onClick={() => handleHousingClick()}><i class="fas fa-home"></i></button>
-                <button className="navigate nav-food" onClick={() => handleFoodClick()}><i class="fas fa-utensils"></i></button>
-                <button className="navigate nav-mov" onClick={() => handleEntertainmentClick()}><i class="fas fa-film"></i></button>
-                <button className="navigate nav-misc" onClick={() => handleMiscClick()}><i class="fas fa-tags"></i></button>
+                <div className="navigate-flags">
+                    <button className="navigate nav-home" onClick={() => handleHousingClick()}><i className="fas fa-home"></i></button>
+                    <div className={`flag ${inHousing ? "f-home" : "hidden-flag"}`}></div>
+                </div>
+                <div className="navigate-flags">
+                <button className="navigate nav-food" onClick={() => handleFoodClick()}><i className="fas fa-utensils"></i></button>
+                    <div className={`flag ${inFood ? "f-food" : "hidden-flag"}`}></div>
+                </div>
+                <div className="navigate-flags">
+                <button className="navigate nav-mov" onClick={() => handleEntertainmentClick()}><i className="fas fa-film"></i></button>
+                    <div className={`flag ${inEntertainment ? "f-mov" : "hidden-flag"}`}></div>
+                </div>
+                <div className="navigate-flags">
+                <button className="navigate nav-misc" onClick={() => handleMiscClick()}><i className="fas fa-tags"></i></button>
+                    <div className={`flag ${inMisc ? "f-misc" : "hidden-flag"}`}></div>
+                </div>
             </div>
             <div className="dashboard-top">
-                {displayTitle()}
+                <h1 className="cat-title">{displayTitle()}</h1>
                 <form className="budget_form">
-                    <label>Budget: </label>
+                    <label className="budget-label">Budget: </label>
                         <input
                         type="number"
                         name="budget"
@@ -185,10 +321,8 @@ function Dashboard(setUserData){
             <div className="App">
             <ProgressBar bgcolor={"#6a1b9a"} completed={percent} />
             </div>
-
-            { cost > budget ? <p className="feedback">You are over your budget</p> : <p className="feedback">Good job! </p>}
+            {displayFeedback()}
             <Link to="/">Home</Link>
-            <button onClick={logOut}>Log out</button>
             <button>reset</button>
         </div>
     )}

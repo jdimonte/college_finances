@@ -29,6 +29,11 @@ Global Styles
 Dashboard
 **********/
 
+.dashboard-page {
+  background-color: var(--light-bg);
+  min-height: 100vh;
+}
+
 .dashboard-top {
   display: flex;
   flex-direction: column;
@@ -41,10 +46,73 @@ Dashboard
 }
 
 .navigate {
-  padding: 0;
+  color: var(--light-bg);
   border: none;
-  background: pink;
-  width: 25%;
+  padding: .5rem;
+  cursor: pointer;
+  font-size: 3rem;
+  transition-duration: 0.4s;
+  opacity: .75;
+  outline: none;
+}
+
+.navigate:hover {
+  opacity: 1;
+}
+
+.nav-home{
+  background-color: var(--blue);
+}
+
+.nav-food {
+  background-color: var(--orange);
+}
+
+.nav-mov {
+  background-color: var(--yellow);
+}
+
+.nav-misc {
+  background-color: var(--purple);
+}
+
+.navigate-flags {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flag {
+  height: 4rem;
+  background-color: transparent;
+  opacity: .75;
+}
+
+.hidden-flag {
+  opacity: 0;
+}
+
+.f-home {
+  background-color: var(--blue);
+}
+
+.f-food {
+  background-color: var(--orange);
+}
+
+.f-mov {
+  background-color: var(--yellow);
+}
+
+.f-misc {
+  background-color: var(--purple);
+}
+
+.cat-title {
+  margin: 2rem 0;
+  font-family: var(--display-font);
+  font-size: 30px;
+  color: var(--dark-text);
 }
 
 .title{
@@ -53,10 +121,17 @@ Dashboard
 
 .budget_form {
   text-align: center;
+
+}
+
+.budget-label {
+  font-family: var(--text-font);
+  font-size: 30px;
 }
 
 .budget{
   text-align: center;
+  font-family: var(--text-font);
 }
 
 .new_purchase {
@@ -81,4 +156,43 @@ Dashboard
 
 .feedback {
   text-align: center;
+}
+
+/*********
+Home Page
+*********/
+
+.home-page {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: contain;
+}
+
+@media screen and (min-width: 419px) {
+  .home-page {
+    background-size: cover;
+  }
+
+  .logo {
+    width: 50%;
+  }
+}
+
+.logobox {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.link-text {
+  text-decoration: none;
+  font-family: var(--display-font);
+  font-size: 80px;
 }
