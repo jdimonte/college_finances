@@ -1,9 +1,10 @@
 import firebase from 'firebase';
 import "firebase/auth";
+import 'firebase/app'
 import "firebase/firestore"
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAEc1fTU4AWucP1NtVHfgPTnDRZNaGHeI0",
+  apiKey: "AIzaSyAEc1fTU4AWucP1NtVHfgPTnDRZNaGHeI0",
   authDomain: "collegefinances-adaf9.firebaseapp.com",
   databaseURL: "https://collegefinances-adaf9-default-rtdb.firebaseio.com",
   projectId: "collegefinances-adaf9",
@@ -14,7 +15,8 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-export const auth = firebase.auth();
+firebase.analytics();
+firebase.auth();
 export const firestore = firebase.firestore();
 
-export default firebase;
+export default { firebase, firebaseConfig };

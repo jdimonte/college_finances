@@ -36,3 +36,56 @@
     transform: rotate(360deg);
   }
 }
+
+/*
+Dashboard
+*/
+
+.navigate_container{
+  display: flex;
+}
+
+.navigate {
+  padding: 0;
+  border: none;
+  background: pink;
+  width: 25%;
+}
+
+.title{
+  text-align: center;
+}
+
+.budget_form {
+  text-align: center;
+}
+
+.budget{
+  text-align: center;
+}
+
+.new_purchase {
+  text-align: center;
+}
+
+.amount_form {
+  text-align: center;
+}
+
+.add {
+  padding: 30px;
+  border: none;
+  background: lightblue;
+}
+
+.add {
+  text-align: center;
+}
+
+.money_left {
+  text-align: center;
+}
+
+.feedback {
+  text-align: center;
+}

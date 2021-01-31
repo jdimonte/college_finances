@@ -20,6 +20,11 @@ function Dashboard(setUserData){
     const [budget, setBudget] = useState(0);
     const [state] = useState(0);
 
+    const [hbudget, setHBudget] = useState(0);
+    const [fbudget, setFBudget] = useState(0);
+    const [ebudget, setEBudget] = useState(0);
+    const [mbudget, setMBudget] = useState(0);
+
     const [hpercent, setHPercent] = useState(0);
     const [fpercent, setFPercent] = useState(0);
     const [epercent, setEPercent] = useState(0);
@@ -65,28 +70,42 @@ function Dashboard(setUserData){
 
     return (
         <div>
-            <h1>Add Costs</h1>
-            <form>
-                <label>Costs</label>
+            <div className="navigate_container">
+                <button className="navigate">Housing Image</button>
+                <button className="navigate">Food Image</button>
+                <button className="navigate">Entertainment Image</button>
+                <button className="navigate">Misc Image</button>
+            </div>
+            <h1 className="title">Title</h1>
+            <form className="budget_form">
+                <label>Budget: </label>
+                    <input
+                    type="number"
+                    name="budget"
+                    value={state.budget}
+                    onChange={handleBudgetChange}
+                />
+            </form>
+            <h1 className="budget">Budget: ${budget}</h1>
+            <h2 className="new_purchase">New Purchase</h2>
+            <form className="amount_form">
+                <label>Amount: </label>
                 <input 
                 type="number"
                 name="amount"
                 value={state.amount}
                 onChange={handleAmountChange}
                 />
-                <label>Budget</label>
-                <input
-                type="number"
-                name="budget"
-                value={state.budget}
-                onChange={handleBudgetChange}
-                />
             </form>
-            <button onClick={() => handleButtonClick('h')}>Housing</button>
-            <button onClick={() => handleButtonClick('f')}>Food</button>
-            <button onClick={() => handleButtonClick('e')}>Entertainment</button>
-            <button onClick={() => handleButtonClick('m')}>Misc</button>
+            <button className="add" onClick={() => handleButtonClick('h')}>Add</button>
+            <button className="add" onClick={() => handleButtonClick('f')}>Add</button>
+            <button className="add" onClick={() => handleButtonClick('e')}>Add</button>
+            <button className="add" onClick={() => handleButtonClick('m')}>Add</button>
+
             <h1>Housing: {housing}, Food: {food}, Entertainment: {entertainment}, Misc: {misc}</h1>
+            <h1>Amount Spent: {cost}</h1>
+
+            <h2 className="money_left">Left to spend this week:</h2>
 
             <div className="App">
             <ProgressBar bgcolor={"#6a1b9a"} completed={hpercent} />
@@ -101,9 +120,7 @@ function Dashboard(setUserData){
             <ProgressBar bgcolor={"#6a1b9a"} completed={mpercent} />
             </div>
 
-            <h1>Amount Spent: {cost}</h1>
-            <h1>Total Budget: {budget}</h1>
-            { cost > budget ? <p>You are over your budget. Consider decreasing your budget for next week.</p> : <p>Good job! You are under your budget.</p>}
+            { cost > budget ? <p className="feedback">You are over your budget</p> : <p className="feedback">Good job! </p>}
             <Link to="/">Log out</Link>
         </div>
     );

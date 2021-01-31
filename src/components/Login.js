@@ -30,10 +30,10 @@ function Login() {
                 <form className="">
                     <label htmlFor="userEmail" className="entry-block">Email:</label>
                     <input type="email" className="inputField" name="userEmail" value={email} placeholder="example@email.com" id="userEmail"
-                    onChange={(event) => onChangeHandler(event)} />
+                    onChange={event => onChangeHandler(event)} />
                     <label htmlFor="userPassword" className="entry-block">Password :</label>
                     <input type="password" className="inputField" name="userEmail" value={password} placeholder="Password" id="userPassword"
-                    onChange = {(event) => onChangeHandler(event)}/>   
+                    onChange={event => onChangeHandler(event)}/>   
                     <button className="form-btn">Sign in</button>
                 </form>
                 <p className="text-currentTarget">
